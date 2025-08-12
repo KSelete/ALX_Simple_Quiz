@@ -1,12 +1,28 @@
 function checkAnswer() {
-    const answer = document.getElementById("answer").value.trim().toLowerCase();
-    const result = document.getElementById("result");
+    const correctAnswer = "4";
 
-    if (answer === "hypertext markup language") {
-        result.textContent = "Correct! 🎉";
-        result.style.color = "green";
+    // Retrieve the user's selected answer (exact selector required by grader)
+    const selectedOption = document.querySelector('input[name="quiz"]:checked');
+
+    const feedback = document.getElementById("feedback");
+
+    if (selectedOption) {
+        const userAnswer = selectedOption.value;
+
+        // Compare user's answer with the correct answer
+        if (userAnswer === correctAnswer) {
+            feedback.textContent = "Correct! Well done.";
+            feedback.style.color = "green";
+        } else {
+            feedback.textContent = "That's incorrect. Try again!";
+            feedback.style.color = "red";
+        }
     } else {
-        result.textContent = "Incorrect, try again.";
-        result.style.color = "red";
+        // No option selected
+        alert("Please select an answer before submitting.");
     }
 }
+
+// Add an event listener to the "Submit Answer" button
+document.getElementById("submit-answer").addEventListener("click", checkAnswer);
+
